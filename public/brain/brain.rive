@@ -1,0 +1,46 @@
+// Bot assignments 
+
+! var name = assistant
+! var number = 5500
+
++ *
+- generateticket
+
++ (hello|hello*)
+- hello user
+- heyy user
+
++ can i learn at my own pace 
+- There are usually self-paced programs and traditional classroom or meeting-style programs available.
+
+// Basic Conditionals !
+// Number Guessing
++ (what type of assignments do you give|type of assignments)
+- Be sure to provide a glimpse of what you offer here and link to previous projects or assignments if you can. You can also link to course or program pages.
+
++ #
+* <star> > <bot number> => number is higher
+* <star> < <bot number> => number is lower
+* <star> == <bot number> => you guessed it right
+ 
+
+// Normal Discussion (memory check) 
++ what are the requirements to take the courses or sign up with your website
+- people know exactly what they need to do to take online courses from you, no matter what those courses might be
+
++ what are the technology requirements
+- You’ll want to explain all the software that you use and what kind of technology people need to take your online courses. If there are certain programs or applications used, put those here
+
+
+// Weather Forecast
+
++ how long does each course take
+- Depending on the type of online learning that you offer, your courses may have their own variable lengths
+
++ weather in * *
+- checkweather,<star1>,<star2>
+
+// Random Biryani Images
+
++ *biryani
+- biryani

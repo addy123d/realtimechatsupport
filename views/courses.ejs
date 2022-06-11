@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Montserrat+Alternates:wght@500&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Passion+One&family=Syne&family=Varela+Round&family=Quicksand&family=Raleway&display=swap"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Courses</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* flex-direction: column; */
+        background: #1c1d1e;
+        background: #ebe5e5;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    .container {
+        width: 1400px;
+        margin: 6% auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        place-items: center;
+        padding: 40px 20px;
+    }
+
+    .container.active {
+        filter: blur(20px);
+        pointer-events: none;
+    }
+
+    .container>div {
+        position: relative;
+        margin: 10%;
+        height: 350px;
+        width: 380px;
+        background: #ffffff;
+        cursor: pointer;
+        border-radius: 2px;
+        background: #ffffff;
+        box-shadow: inset 30px 30px 60px #e3e3e3,
+            inset -30px -30px 60px #ffffff;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+
+    .container>div .image {
+        display: flex;
+        justify-content: center;
+        margin: 3%;
+    }
+
+    .container>div .image img {
+        /* transform: translateY(-50px); */
+        height: 120px;
+        width: 120px;
+        border-radius: 100%;
+    }
+
+    /* .container>div:hover {
+        transition: all .5s;
+        transform: translateY(-10px);
+    }
+
+    .container>div:hover .image img {
+        transition: all .5s;
+        transform: translateY(-5px);
+    } */
+
+    .container>div .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10%;
+        font-weight: bolder;
+        text-transform: uppercase;
+    }
+
+    .container>div .course_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 22%;
+        font-family: 'Montserrat Alternates', sans-serif;
+        font-weight: 300;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .container>div .course_title h2 {
+        text-align: center;
+        color: #000000;
+        font-family: "Raleway", sans-serif;
+        text-transform: uppercase;
+    }
+
+
+    .title {
+        position: absolute;
+        top: 5%;
+    }
+
+    .title h2 {
+        text-align: center;
+        color: #1c1d1e;
+        font-family: "Montserrat Alternates", cursive;
+        text-transform: uppercase;
+        font-size: 2rem;
+        font-weight: bolder;
+        letter-spacing: 1.5px;
+        user-select: none;
+    }
+
+    /* Button Styling */
+    button {
+        padding: .7em .8em .7em .8em;
+        background: transparent;
+        outline: none;
+        background: #317cf3;
+        border: none;
+        color: #f5f5f5;
+        text-shadow: 1px 1px 1px #1c1d1e;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        font-weight: bolder;
+        letter-spacing: 1px;
+        font-size: .8rem;
+        transition: .2s;
+    }
+
+    button:hover {
+        background: #2a63be;
+    }
+
+    /* Submit Button ! */
+    .submit {
+        position: fixed;
+        top: 5%;
+        left: 90%;
+        z-index: 20;
+    }
+
+    .delete {
+        position: fixed;
+        top: 86%;
+        left: 90%;
+        z-index: 20;
+    }
+
+    #button button,
+    #logoutBtn button {
+        padding: .5em .6em .5em .6em;
+        background: #302e2e;
+        border: none;
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        outline: none;
+        cursor: pointer;
+
+    }
+
+    #logoutBtn button {
+        background: #e24a4a;
+    }
+
+    #delbutton button {
+        padding: .5em .6em .5em .6em;
+        background: #302e2e;
+        border: none;
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        outline: none;
+        cursor: pointer;
+
+    }
+
+    #button button .fa-plus {
+        transform: translate(.9px, 1.5px);
+        font-size: 1.3rem;
+        transition: .3s;
+    }
+
+    #delbutton button .fa-trash-o {
+        transform: translate(.9px, .6px);
+        font-size: 1.3rem;
+        transition: .3s;
+    }
+
+    #button button .fa-plus.active {
+        transform: translate(.6px, 1px) rotate(45deg);
+    }
+
+    #button button:hover {
+        transition: all .2s;
+        background: #333333;
+        color: #f5f5f5;
+    }
+
+    #delbutton button:hover {
+        transition: all .2s;
+        background: #333333;
+        color: #f5f5f5;
+    }
+
+    .fa-sign-out {
+        font-size: 1.5rem;
+    }
+
+
+    /* Form */
+    .formcontainer,
+    .delformcontainer {
+        /* transform: translate(-50%, -50%); */
+        position: fixed;
+        top: 15%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 99;
+        opacity: 0;
+        pointer-events: none;
+        transition: .3s;
+    }
+
+    .formcontainer.active {
+        opacity: 1;
+        pointer-events: visible;
+    }
+
+    .delformcontainer.active {
+        opacity: 1;
+        pointer-events: visible;
+    }
+
+    .form {
+        margin: 7%;
+        background: #ffffff;
+        padding: 1em 2em 1em 2em;
+        border-radius: 4px;
+    }
+
+    .email,
+    .password,
+    .plan,
+    .btn {
+        display: flex;
+        justify-content: center;
+        margin: 10%;
+    }
+
+    input[type="email"],
+    input[type="text"] {
+        padding: 1em 1.5em 1em 1.5em;
+        border: none;
+        background: rgb(238, 235, 235);
+        border-radius: 5px;
+        outline: none;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    select {
+        padding: 1em 1em 1em 1em;
+        outline: none;
+        border: .5px dashed gray;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    .form>button {
+        position: relative;
+        top: 0;
+        left: 0;
+        padding: .7em 1em .7em 1em;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background: rgb(25, 48, 70);
+        color: #ffffff;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 5px;
+        font-size: .8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px #000000;
+    }
+
+    .form>button:hover {
+        transition: all .3s;
+        background: rgb(77, 77, 77)
+    }
+
+    .form h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.4rem;
+        margin: 2%;
+        border-bottom: .5px dashed #1c1d1e;
+        line-height: 50px;
+        color: #1c1d1e;
+        /* text-align: center; */
+    }
+
+    /* Pop Up */
+    .notification {
+        position: fixed;
+        top: 8%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999;
+        opacity: 0;
+        pointer-events: none;
+        transition: 1s;
+    }
+
+    .notification.active {
+        opacity: 1;
+        pointer-events: visible;
+    }
+
+    .notification h2 {
+        background: rgb(25, 48, 70);
+        color: #f5f5f5;
+        padding: 1em 2em 1em 2em;
+        border-radius: 40px;
+        text-shadow: 1px 1px 2px #1c1d1e;
+    }
+
+
+    @media(max-width : 1163px) {
+        .container {
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        }
+    }
+
+    @media(max-width : 1110px) {
+        .container>div {
+            margin-top: 10%;
+        }
+
+    }
+
+    @media(max-width : 441px) {
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container>div {
+            width: 252px;
+            margin-bottom: 10%;
+            margin-top: 10%;
+        }
+
+        .container>div .btn {
+            top: 85%;
+            left: 20%;
+        }
+
+        .container>div .course_title {
+            margin-top: 22%;
+            font-size: .8rem;
+        }
+
+        .container>div .review::before {
+            top: 34%;
+            left: 4%;
+            font-size: 5rem
+        }
+
+        .title {
+            position: absolute;
+            top: 3%;
+        }
+
+        .title h2 {
+            /* text-transform: uppercase; */
+            font-size: 2rem;
+            margin-bottom: 30%;
+            /* font-weight: 700; */
+            user-select: none;
+        }
+
+        .submit {
+            position: fixed;
+            top: 5%;
+            left: 83%;
+        }
+
+        .delete {
+            left: 83%;
+        }
+
+        .formcontainer {
+            transform: translate(-50%, 10%);
+        }
+
+        .notification {
+            left: 25%;
+            transform: translate(-8%, -50%);
+            text-align: center;
+        }
+
+        .notification h2 {
+            background: rgb(25, 48, 70);
+            color: #f5f5f5;
+            padding: 1em;
+            border-radius: 40px;
+            text-shadow: 1px 1px 2px #1c1d1e;
+            font-size: 1.2rem;
+        }
+
+        .title h2 {
+            text-align: center;
+            color: #1c1d1e;
+            font-family: "Montserrat Alternates", cursive;
+            text-transform: uppercase;
+            font-size: 1.7rem;
+            font-weight: bolder;
+            letter-spacing: 1.5px;
+            user-select: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="title">
+        <h2>Courses 📝</h2>
+    </div>
+
+    <!-- Pop Up -->
+    <div class="notification">
+        <h2></h2>
+    </div>
+    <%if(adminStatus!=1){%>
+
+        <div class="submit">
+            <div id="logoutBtn">
+                <a href="/logout"><button><i class="fa fa-sign-out" aria-hidden="true"></i></button></a>
+            </div>
+        </div>
+
+        <div class="container">
+            <% courses.forEach((course)=>{ %>
+
+                <div>
+                    <div class="image">
+                        <img src="<%= course.imgUrl %>" alt="" width="200" height="200">
+                    </div>
+                    <div class="course_title">
+                        <h2>
+                            <%=course.courseName%>
+                        </h2>
+                    </div>
+                    <div class="btn">
+                        <button onclick="purchase(`<%=course._id%>`)">Buy Now</button>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+
+        <%}%>
+
+            <%if(adminStatus===1){%>
+                <!-- Submit Button -->
+                <div class="submit">
+                    <div id="button">
+                        <button id="submitBtn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+
+                <!-- Delete Button -->
+                <div class="delete">
+                    <div id="delbutton">
+                        <button id="submitBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <!-- Delete Button -->
+
+                <!--Form-->
+                <div class="formcontainer">
+                    <div class="form">
+                        <h2>Add Course <i class="fa fa-plus-circle" aria-hidden="true"></i></h2>
+
+                        <div class="password">
+                            <input type="text" name="courseName" id="courseName" placeholder="Course Title"
+                                autocomplete="off">
+                        </div>
+
+                        <div class="email">
+                            <input type="email" name="imgUrl" id="imgTag" placeholder="Tags" autocomplete="off">
+                        </div>
+
+                        <div class="email">
+                            <input type="text" name="imgUrl" id="mentorName" placeholder="Mentor Name" value="<%=username%>" autocomplete="off">
+                        </div>
+
+                        <div class="btn">
+                            <button class="subtn add">Add<div class="loading-1 loading"></div></button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Form-->
+
+                <!--Form-->
+                <div class="delformcontainer">
+                    <div class="form">
+                        <h2>Delete Course <i class="fa fa-trash-o" aria-hidden="true"></i></h2>
+
+                        <div class="password">
+                            <input type="text" name="name" id="d_name" placeholder="Course Title" autocomplete="off">
+                        </div>
+
+                        <div class="btn">
+                            <button class="subtn deletebtn">Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Form-->
+
+                <div class="container">
+                    <% courses.forEach((course)=>{ %>
+
+                        <div>
+                            <div class="image">
+                                <img src="<%= course.imgUrl %>" alt="" width="200" height="200">
+                            </div>
+                            <div class="course_title">
+                                <h2>
+                                    <%=course.courseName%>
+                                </h2>
+                            </div>
+                            <div class="btn">
+                                <button onclick="purchase(`<%=course._id%>`)">Buy Now</button>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+                <script>
+                    // Add course !
+                    const form = document.querySelector(".formcontainer");
+                    const body = document.querySelector(".container");
+                    const addbtn = document.querySelector("#button");
+                    const plusicon = document.querySelector(".fa-plus");
+
+                    // Delete Course !
+                    const delform = document.querySelector(".delformcontainer");
+                    const delbtn = document.querySelector("#delbutton");
+                    console.log(delbtn);
+                    console.log(addbtn);
+
+                    addbtn.addEventListener("click", function () {
+                        addbtn.style.pointerEvents = "visible";
+
+                        form.classList.toggle("active");
+                        body.classList.toggle("active");
+                        plusicon.classList.toggle("active");
+
+                        // Delete Course button disabled !
+                        delbtn.style.pointerEvents = "none";
+                        delbtn.style.opacity = "0";
+
+                        if (!body.classList.contains("active")) {
+                            delbtn.style.pointerEvents = "visible";
+                            delbtn.style.opacity = "1";
+                        }
+
+                    });
+
+                    // Delete Course !
+                    delbtn.addEventListener("click", function () {
+                        delbtn.style.pointerEvents = "visible";
+
+                        body.classList.toggle("active");
+                        delform.classList.toggle("active");
+
+                        // Add course button disabled !
+                        addbtn.style.pointerEvents = "none";
+                        addbtn.style.opacity = "0";
+
+                        if (!body.classList.contains("active")) {
+                            addbtn.style.pointerEvents = "visible";
+                            addbtn.style.opacity = "1";
+                        }
+
+                    });
+
+
+                    // Submit add course form !
+                    const courseName = document.getElementById("courseName");
+                    const imgUrl = document.getElementById("imgTag");
+                    const add = document.querySelector(".add");
+
+                    add.addEventListener("click", function () {
+                        console.log("Name : ", courseName.value);
+                        console.log("URL : ", imgUrl.value);
+
+                        const options = {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                courseName: courseName.value.toUpperCase(),
+                                imgUrl: `https://source.unsplash.com/500x500/?${imgUrl.value}`,
+                                mentorName : document.querySelector("#mentorName").value
+                            }),
+                            headers: new Headers({ 'Content-Type': "application/json" })
+                        }
+
+                        fetch('/course/add', options)
+                            .then((response) => response.json())
+                            .then((serverReponse) => {
+                                const { result } = serverReponse;
+
+                                if (result === "success") {
+                                    notification.classList.toggle("active");
+                                    notification.innerHTML = `<h2>Course Added ✔</h2>`;
+
+                                    setTimeout(() => {
+                                        location.reload();
+
+                                    }, 1000);
+                                } else {
+                                    if (result === "fail") {
+                                        const { type } = serverReponse;
+                                        if (type === "DBerror") {
+
+                                            notification.classList.toggle("active");
+                                            notification.innerHTML = `<h2>Failed : DB Error ❌</h2>`;
+
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1000);
+
+                                        } else {
+
+                                            notification.classList.toggle("active");
+                                            notification.innerHTML = `<h2>Failed : Name Error ❌</h2>`;
+
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1000);
+
+                                        }
+                                    }
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(`Error : ${error}`);
+                            });
+                    });
+
+
+                    // Delete Course Form !
+
+                    const del_name = document.getElementById("d_name");
+                    const delete_button = document.querySelector(".deletebtn");
+
+
+                    delete_button.addEventListener("click", function () {
+
+                        const options = {
+                            method: "POST",
+                            body: JSON.stringify({
+                                courseName: del_name.value.toUpperCase()
+                            }),
+                            headers: new Headers({ 'Content-Type': "application/json" })
+                        };
+
+                        fetch('/course/delete', options)
+                            .then(response => response.json())
+                            .then(function (serverReponse) {
+                                const { result } = serverReponse;
+
+                                if (result === "success") {
+                                    notification.classList.toggle("active");
+                                    notification.innerHTML = `<h2>Course Deleted ✔</h2>`;
+
+                                    setTimeout(() => {
+                                        location.reload();
+
+                                    }, 1000);
+                                } else {
+                                    if (result === "fail") {
+                                        const { type } = serverReponse;
+                                        if (type === "DBerror") {
+
+                                            notification.classList.toggle("active");
+                                            notification.innerHTML = `<h2>Failed : DB Error ❌</h2>`;
+
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1000);
+
+                                        } else {
+
+                                            notification.classList.toggle("active");
+                                            notification.innerHTML = `<h2>Failed : Course Not Found ❌</h2>`;
+
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1000);
+
+                                        }
+                                    }
+                                }
+
+                            })
+                            .catch(function (error) {
+                                console.log(`Error : ${error}`);
+                            });
+
+
+                    });
+
+                </script>
+
+                <%}%>
+
+
+
+
+
+
+</body>
+<script>
+
+    // Notification Element !
+    const notification = document.querySelector(".notification");
+
+
+    // Buy Query !
+    // Type of Request - GET
+
+    function purchase(id) {
+
+        fetch(`/purchase/${id}`)
+            .then(response => response.json())
+            .then(function (serverReponse) {
+
+                const { result } = serverReponse;
+
+                if (result === "success") {
+                    console.log("Success !");
+                    notification.classList.toggle("active");
+                    notification.innerHTML = `<h2>Course Purchased ✔</h2>`;
+
+                    setTimeout(() => {
+                        notification.classList.toggle("active");
+
+                    }, 1500);
+                } else {
+                    if (result === "fail") {
+                        const { type } = serverReponse;
+                        if (type === "DBerror") {
+
+                            notification.classList.toggle("active");
+                            notification.innerHTML = `<h2>Failed : DB Error ❌</h2>`;
+
+                            setTimeout(() => {
+                                notification.classList.toggle("active");
+                            }, 1500);
+
+                        } else {
+
+                            notification.classList.toggle("active");
+                            notification.innerHTML = `<h2>Failed : Already Purchased ❌</h2>`;
+
+                            setTimeout(() => {
+                                notification.classList.toggle("active");
+                            }, 1500);
+
+                        }
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(`Error : ${error}`);
+            });
+
+    }
+
+</script>
+
+</html>
